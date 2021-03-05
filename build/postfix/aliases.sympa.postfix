@@ -1,0 +1,11 @@
+# Robot aliases for Sympa.
+sympa:                 "| /usr/lib/sympa/bin/queue postmaster@mailer.whalesanctuary.co.uk"
+listmaster:            "| /usr/lib/sympa/bin/queue listmaster@mailer.whalesanctuary.co.uk"
+bounce:                "| /usr/lib/sympa/bin/bouncequeue postmaster@mailer.whalesanctuary.co.uk"
+abuse-feedback-report: "| /usr/lib/sympa/bin/bouncequeue postmaster@mailer.whalesanctuary.co.uk"
+sympa-request:         postmaster
+sympa-owner:           postmaster
+#listserv:             sympa
+#listserv-request:     sympa-request
+#majordomo:            sympa
+#listserv-owner:       sympa-owner

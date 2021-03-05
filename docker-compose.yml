@@ -1,0 +1,26 @@
+version: '3.2'
+
+services:
+  sympa:
+    build: build
+    hostname: mailer
+    volumes:
+      - "./sympa.conf:/etc/sympa/sympa/sympa.conf"
+      - "${CONTAINER_VOLUME?REQUIRED}/${SERIAL?REQUIRED}/sympa/run:/run/sympa"
+    ports:
+      - "8080:80"
+    depends_on: 
+      - db
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD?REQUIRED}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      SYMPA_DATABASE: ${SYMPA_DATABASE:-sympa}
+      SYMPA_POSTGRES_PASSWORD: ${SYMPA_POSTGRES_PASSWORD?REQUIRED}
+      SYMPA_POSTGRES_USER: ${SYMPA_POSTGRES_USER:-sympa}
+    volumes:
+      - "${CONTAINER_VOLUME?NOT DEFINED}/${SERIAL?NOT DEFINED}/postgres:/var/lib/postgresql/data"
+      - "${PWD}/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh"
